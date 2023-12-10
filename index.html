@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<head>
+    <title>Cricket Game</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Skranji&display=swap">
+  </head>
+
+<body>  
+     
+<style>
+       body {
+    background-image:url("background.jpg");
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+
+.body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    #oddButtonContainer,
+    #evenButtonContainer {
+      flex-grow: 1; /* Added to allow equal spacing around the buttons */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    img{
+      display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+    }
+   
+    #GroundDiv{
+  margin-bottom: 0%;
+
+}
+
+    #groundLeft,
+    #groundRight {
+      flex-grow: 1; /* Added to allow equal spacing around the buttons */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5%;
+    }
+
+
+.container {
+  max-width: 90%;
+  height: 40%;
+  position: fixed;
+  width: 90%;
+  left: 50%;
+  top:0;
+  transform: translate(-50%);
+  display: flex;
+  align-items: center;
+  justify-content:left;
+  background-size: calc(10 * 2px) calc(10 * 2px);
+  margin-top: 15%;
+}
+
+
+
+.container-inner {
+  background: #a4363e;
+  border-radius: 30px;
+  box-shadow: 5px 6px 0px -2px #620d15, -6px 5px 0px -2px #620d15,
+    0px -2px 0px 2px #ee9191, 0px 10px 0px 0px #610c14,
+    0px -10px 0px 1px #e66565, 0px 0px 180px 90px #0d2f66;
+  width: 640px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.content {
+  font-family: "Skranji", cursive;
+  background: radial-gradient(#fffbf3, #ffe19e);
+  padding: 24px;
+  box-sizing: border-box;
+  border-radius: 20px 18px 20px 18px;
+  box-shadow: 0px 0px 0px 6px #5e1e21, 0px 0px 8px 6px #84222b,
+    inset 0px 0px 15px 0px #614506, 6px 6px 1px 1px #e66565,
+    -6px 6px 1px 1px #e66565;
+  text-align: center;
+
+  p {
+    font-size: 56px;
+    padding: 40px;
+    box-sizing: border-box;
+    color: #461417;
+  }
+}
+
+.buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: normal;
+  align-items: center;
+  gap: 30px;
+  box-sizing: border-box;
+}
+
+  button {
+    padding: 20px;
+    flex: 1;
+    border-radius: 20px;
+    border: 2px solid #49181e;
+    font-family: "Skranji", cursive;
+    color: #fff;
+    font-size: 32px;
+    text-shadow: 1px 2px 3px #000000;
+    cursor: pointer;
+  }
+
+    .style1 {
+      background: linear-gradient(#ced869, #536d1b);
+      box-shadow: 0px 0px 0px 4px #7e1522, 0px 2px 0px 3px #e66565;
+      &:hover {
+      box-shadow: 0px 0px 0px 4px #7e1522, 0px 2px 0px 3px #e66565,
+        inset 2px 2px 10px 3px #4e6217;
+      }
+    }
+
+    .style2 {
+      background: linear-gradient(#ea7079, #891a1a);
+      box-shadow: 0px 0px 0px 4px #7e1522, 0px 2px 0px 3px #e66565;
+      &:hover {
+      box-shadow: 0px 0px 0px 4px #7e1522, 0px 2px 0px 3px #e66565,
+        inset 2px 2px 10px 3px #822828;
+      }
+    }
+ 
+
+   
+   
+</style>
+
+
+
+
+<div id="OddOrEvenDialog">
+<div class="buttons" >
+    <div id="oddButtonContainer">
+      <button class="style1" onclick="odd()">Odd</button>
+      <p id="odd"></p>
+    </div>
+    <div id="evenButtonContainer">
+      <button class="style2" onclick="even()">Even</button>
+      <p id="even"></p>
+    </div>
+  </div>
+</div>
+
+<dialog id="myDialog">
+  <div class="container">
+    <div class="container-inner">
+      <div class="content">
+        <h1>Click Your Choice</h1>
+      </div>
+      <div class="buttons">
+          <button class="style2" onclick="closeDialog('myDialog');one();">1</button>
+          <button class="style1" onclick="closeDialog('myDialog');two();">2</button>
+          <button class="style2" onclick="closeDialog('myDialog');three();">3</button>
+          <button class="style1" onclick="closeDialog('myDialog');four();">4</button>
+          <button class="style2" onclick="closeDialog('myDialog');five();">5</button>
+          <button class="style1" onclick="closeDialog('myDialog');six();">6</button>
+        </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="tosswondialog">
+    <div class="container" style="justify-content:Right;">
+      <div class="container-inner">
+        <div class="content">
+          <h1>You won the toss</h1>
+        </div>
+        <div class="buttons">
+      <button class="style1" onclick="closeDialog('tosswondialog');printchoicebat();">Bat</button>
+      <button class="style2" onclick="closeDialog('tosswondialog');printchoicebowl();">Bowl</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="tosslosedialog">
+    <div class="container" style="justify-content:Right;">
+      <div class="container-inner">
+        <div class="content">
+          <h1>You lost the toss</h1>
+        </div>
+        <div class="buttons">
+      <button class="style2" onclick="closeDialog('tosslosedialog');printchoicetosslostBatOrBowl();">Continue</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+ <dialog id="tosslosedialogbat">
+  <div class="container" style="justify-content:Right;">
+    <div class="container-inner">
+      <div class="content">
+        <h1>Computer Chose to bat</h1>
+      </div>
+      <div class="buttons">
+        <button class="style2" onclick="closeDialog('tosslosedialogbat');">continue</button>
+      </div>
+    </div>
+  </div>
+ </dialog>
+
+
+ <dialog id="tosslosedialogbowl">
+    <div class="container" style="justify-content:Right;">
+      <div class="container-inner">
+        <div class="content">
+          <h1>Computer Chose to bowl</h1>
+        </div>
+        <div class="buttons">
+            <button class="style1" onclick="closeDialog('tosslosedialogbowl');">continue</button>
+        </div>
+      </div>
+    </div>
+ </dialog>
+
+
+ <dialog id="printchoicebatdialog">
+  <div class="container" style="justify-content:Right;">
+    <div class="container-inner">
+      <div class="content">
+        <h1>You chose to bat first</h1>
+      <div>
+      <div class="buttons">
+          <button class="style1" onclick="closeDialog('printchoicebatdialog');">continue</button>
+      </div>
+    </div>
+  </div>
+ </dialog>
+
+
+ <dialog id="printchoicebowldialog">
+  <div class="container" style="justify-content:Right;">
+    <div class="container-inner">
+      <div class="content">
+        <h1>You chose to bowl first</h1>
+      </div>
+      <div class="buttons">
+          <button class="style1" onclick="closeDialog('printchoicebowldialog');">continue</button>
+      </div>
+    </div>
+  </div>
+ </dialog>
+
+
+ <dialog id="UserOutDialog">
+  <div class="container" style="justify-content:Right;">
+    <div class="container-inner">
+      <div class="content">
+        <h1>You are Out!!!</h1>
+      </div>
+      <div class="buttons">
+        <button class="style1" onclick="closeDialog('UserOutDialog');">OKAY</button>
+      </div>
+    </div>
+  </div>
+ </dialog>
+
+
+ <dialog id="ComputerOutDialog">
+  <div class="container" style="justify-content:Right;">
+    <div class="container-inner">
+      <div class="content">
+        <h1>Computer Out!!!</h1>
+      </div>
+      <div class="buttons">
+        <button class="style1" onclick="closeDialog('ComputerOutDialog');">OKAY</button>
+      </div>
+    </div>
+  </div>
+ </dialog>
+
+
+ <dialog id="ComputerWon">
+  <div class="container" style="justify-content:Right;">
+    <div class="container-inner">
+      <div class="content">
+        <h1>Computer Won!!!</h1>
+      </div>
+      <div class="buttons">
+        <button class="style1" onclick="closeDialog('ComputerWon');startAgain();">Start Over</button>
+      </div>
+    </div>
+  </div>
+ </dialog>
+
+
+ <dialog id="UserWon">
+  <div class="container" style="justify-content:Right;">
+    <div class="container-inner">
+      <div class="content">
+        <h1>User Won!!!</h1>
+      </div>
+      <div class="buttons">
+        <button class="style1" onclick="closeDialog('UserWon');startAgain();">Start Over</button>
+      </div>
+    </div>
+  </div>
+ </dialog>
+
+ <dialog id="Tie">
+  <div class="container" style="justify-content:Right;">
+    <div class="container-inner">
+      <div class="content">
+        <h1>Tie!!!</h1>
+      </div>
+      <div class="buttons">
+        <button class="style1" onclick="closeDialog('Tie');startAgain();">Start Over</button>
+      </div>
+    </div>
+  </div>
+ </dialog>
+
+
+
+
+
+<div id="GroundDiv">
+  <div class="container" >
+    <div class="container-inner">
+            <div id="groundLeft" class="content" style="
+            bottom: 0px;
+            margin-top: 0px;
+            ">
+                      <h1 style="
+                      margin-top: 0px;
+                      margin-bottom: 0px;
+                  "> User </h1>
+                      <div id="UserResult" style="align-content: center;" ></div>
+                      <h2>User Choice  : <span id="userChoice">0</span> User Score : <span id="userScore">0</span></h2>
+            </div>
+            <div id="groundRight" class="content" style="
+            padding-top: 0px;
+            padding-bottom: 0px;">
+                      <h1 style="
+                      margin-top: 0px;
+                      margin-bottom: 0px;
+                  "> Computer </h1>
+                      <div id="ComputerResult" style="align-content: center;"></div>
+                      <h2 id="scoreBoard">Computer Choice  : <span id="computerChoice">0</span><br>Computer Score : <span id="computerScore">0</span></h2>
+            </div>
+            <div class="content" style="
+            padding-bottom: 2px;
+            padding-top: 2px;
+            " >
+                      <h1>Click Your Choice</h1>
+            </div>
+            <div class="buttons">
+              <button class="style2" onclick="one();">1</button>
+              <button class="style1" onclick="two();">2</button>
+              <button class="style2" onclick="three();">3</button>
+              <button class="style1" onclick="four();">4</button>
+              <button class="style2" onclick="five();">5</button>
+              <button class="style1" onclick="six();">6</button>
+            </div>
+    </div>
+  </div>
+</div>
+       
+
+<script>
+
+let tossOddOrEven;
+let userBatOrBowl=0;
+let userChoice=0;
+let computerChoice=0;
+let userChoicePlay=0;
+let computerChoicePlay=0;
+let toss=0;
+let userOption=document.createElement('img');
+let computerOption=document.createElement('img');
+let userScore=document.createElement('span');
+let computerScore=document.createElement('span');
+let arr=["one.png","two.png","three.png","four.png","five.png","six.png"];
+let userTotal=0;
+let computerTotal=0;
+let secondInningsBalancer=0;
+let computerChoiceBatOrBowl=10;
+CloseDiv("GroundDiv");
+       
+function CloseDiv(divId)
+{
+    targetDiv = document.getElementById(divId);
+    targetDiv.style.display = "none";
+}
+
+function OpenDiv(userInput)
+{
+    targetDiv = document.getElementById(userInput);
+    targetDiv.style.display = "block";
+}
+
+function closeDialog(dialogId)
+{
+    const dialog = document.getElementById(dialogId);
+    dialog.close();
+}
+
+function odd()
+{
+    tossOddOrEven = 0;
+    document.getElementById("myDialog").showModal();
+    //document.getElementById("evenButtonContainer").style.display = "none";
+    //document.getElementById("oddButtonContainer").style.display = "none";
+    CloseDiv("OddOrEvenDialog");
+    console.log("Your Choice is Odd");
+   
+}
+       
+function even()
+{
+    tossOddOrEven = 1;
+    document.getElementById("myDialog").showModal();
+    //document.getElementById("oddButtonContainer").style.display = "none";
+    //document.getElementById("evenButtonContainer").style.display = "none";
+    CloseDiv("OddOrEvenDialog");
+    console.log("Your Choice is Even");
+       
+}
+
+function one()
+{
+OpenDiv("GroundDiv");
+if(toss==0)
+{
+userChoice=1; computerChoice = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice = "+userChoice);console.log("Computer Choice = "+computerChoice);tossWonOrLose();
+}
+else
+{
+userChoicePlay=1; computerChoicePlay = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice of Play = "+userChoicePlay);console.log("Computer Choice of Play= "+computerChoicePlay);
+}
+if(userBatOrBowl==2)
+{
+userBowlingFirstInnings();
+console.log("called userBowlingFirstInnings()....");
+}
+else if(userBatOrBowl==1)
+{
+userBattingSecondInnings();
+console.log("called userBattingSecondInnings()....");
+}
+else if(userBatOrBowl==3)
+{
+userBattingFirstInnings();
+console.log("called userBattingFirstInnings()....");
+}
+else if(userBatOrBowl==4)
+{
+userBowlingSecondInnings();
+console.log("called userBowlingSecondInnings()....");
+}
+}
+
+function two()
+{
+OpenDiv("GroundDiv");
+if(toss==0)
+{
+userChoice=2; computerChoice = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice = "+userChoice);console.log("Computer Choice = "+computerChoice);tossWonOrLose();
+}
+else
+{
+userChoicePlay=2; computerChoicePlay = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice of Play = "+userChoicePlay);console.log("Computer Choice of Play= "+computerChoicePlay);
+}
+if(userBatOrBowl==2)
+{
+userBowlingFirstInnings();
+console.log("called userBowlingFirstInnings()....");
+}
+else if(userBatOrBowl==1)
+{
+userBattingSecondInnings();
+console.log("called userBattingSecondInnings()....");
+}
+else if(userBatOrBowl==3)
+{
+userBattingFirstInnings();
+console.log("called userBattingFirstInnings()....");
+}
+else if(userBatOrBowl==4)
+{
+userBowlingSecondInnings();
+console.log("called userBowlingSecondInnings()....");
+}
+}
+
+function three()
+{
+OpenDiv("GroundDiv");
+if(toss==0)
+{
+userChoice=3; computerChoice = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice = "+userChoice);console.log("Computer Choice = "+computerChoice);tossWonOrLose();
+}
+else
+{
+userChoicePlay=3; computerChoicePlay = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice of Play = "+userChoicePlay);console.log("Computer Choice of Play= "+computerChoicePlay);
+}
+if(userBatOrBowl==2)
+{
+userBowlingFirstInnings();
+console.log("called userBowlingFirstInnings()....");
+}
+else if(userBatOrBowl==1)
+{
+userBattingSecondInnings();
+console.log("called userBattingSecondInnings()....");
+}
+else if(userBatOrBowl==3)
+{
+userBattingFirstInnings();
+console.log("called userBattingFirstInnings()....");
+}
+else if(userBatOrBowl==4)
+{
+userBowlingSecondInnings();
+console.log("called userBowlingSecondInnings()....");
+}
+}
+
+function four()
+{
+OpenDiv("GroundDiv");
+if(toss==0)
+{
+userChoice=4; computerChoice = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice = "+userChoice);console.log("Computer Choice = "+computerChoice);tossWonOrLose();
+}
+else
+{
+userChoicePlay=4; computerChoicePlay = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice of Play = "+userChoicePlay);console.log("Computer Choice of Play= "+computerChoicePlay);
+}
+if(userBatOrBowl==2)
+{
+userBowlingFirstInnings();
+console.log("called userBowlingFirstInnings()....");
+}
+else if(userBatOrBowl==1)
+{
+userBattingSecondInnings();
+console.log("called userBattingSecondInnings()....");
+}
+else if(userBatOrBowl==3)
+{
+userBattingFirstInnings();
+console.log("called userBattingFirstInnings()....");
+}
+else if(userBatOrBowl==4)
+{
+userBowlingSecondInnings();
+console.log("called userBowlingSecondInnings()....");
+}
+}
+
+function five()
+{
+OpenDiv("GroundDiv");
+if(toss==0)
+{
+userChoice=5; computerChoice = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice = "+userChoice);console.log("Computer Choice = "+computerChoice);tossWonOrLose();
+}
+else
+{
+userChoicePlay=5; computerChoicePlay = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice of Play = "+userChoicePlay);console.log("Computer Choice of Play= "+computerChoicePlay);
+}
+if(userBatOrBowl==2)
+{
+userBowlingFirstInnings();
+console.log("called userBowlingFirstInnings()....");
+}
+else if(userBatOrBowl==1)
+{
+userBattingSecondInnings();
+console.log("called userBattingSecondInnings()....");
+}
+else if(userBatOrBowl==3)
+{
+userBattingFirstInnings();
+console.log("called userBattingFirstInnings()....");
+}
+else if(userBatOrBowl==4)
+{
+userBowlingSecondInnings();
+console.log("called userBowlingSecondInnings()....");
+}
+}
+
+function six()
+{
+OpenDiv("GroundDiv");
+if(toss==0)
+{
+userChoice=6; computerChoice = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice = "+userChoice);console.log("Computer Choice = "+computerChoice);tossWonOrLose();
+}
+else
+{
+userChoicePlay=6; computerChoicePlay = Math.floor(Math.random() * 6) + 1;
+console.log("Your Choice of Play = "+userChoicePlay);console.log("Computer Choice of Play= "+computerChoicePlay);
+}
+if(userBatOrBowl==2)
+{
+userBowlingFirstInnings();
+console.log("called userBowlingFirstInnings()....");
+}
+else if(userBatOrBowl==1)
+{
+userBattingSecondInnings();
+console.log("called userBattingSecondInnings()....");
+}
+else if(userBatOrBowl==3)
+{
+userBattingFirstInnings();
+console.log("called userBattingFirstInnings()....");
+}
+else if(userBatOrBowl==4)
+{
+userBowlingSecondInnings();
+console.log("called userBowlingSecondInnings()....");
+}
+}
+
+
+function tossWonOrLose()
+{
+    toss=1;
+    console.log("toss");
+
+    //userOption will be displayed as image
+    userOption.src="./"+arr[userChoice-1];
+    document.getElementById("UserResult").appendChild(userOption);
+
+    //computerOption will be displayed as image
+    computerOption.src="./"+arr[computerChoice-1];
+    document.getElementById("ComputerResult").appendChild(computerOption);
+
+    //userOption will be displayed as number
+    document.getElementById("userChoice").textContent = userChoice;
+   
+    //computerOption will be displayed as number
+    document.getElementById("computerChoice").textContent = computerChoice;
+   
+
+    if(tossOddOrEven  == 0)
+    {
+        if((userChoice+computerChoice) % 2 == 1) {tosswon();}
+        else {tosslose();}
+    }
+    else if(tossOddOrEven  == 1)
+    {
+        if((userChoice+computerChoice) % 2 == 0) {tosswon();}
+        else {tosslose();}
+    }
+}
+
+function tosswon() {document.getElementById("tosswondialog").showModal();console.log("tossWon");}
+       
+function tosslose()
+{
+    console.log("tossLose");
+    computerChoice = Math.floor(Math.random() * 6) + 1;
+    computerChoiceBatOrBowl=computerChoice%2;
+    document.getElementById("tosslosedialog").showModal();
+}
+
+function printchoicebat(){userBatOrBowl=3;document.getElementById("printchoicebatdialog").showModal();}
+function printchoicebowl(){userBatOrBowl=2;document.getElementById("printchoicebowldialog").showModal();}
+function printchoicetosslost(){document.getElementById("tosslosedialog").showModal();}
+function printchoicetosslostBatOrBowl()
+{
+if(computerChoiceBatOrBowl==1)
+    {
+userBatOrBowl=2;
+console.log("Computer choses to bat");
+document.getElementById("tosslosedialogbat").showModal();
+    }
+    else
+    {
+userBatOrBowl=3;  
+console.log("Computer choses to bowl");
+        document.getElementById("tosslosedialogbowl").showModal();
+    }
+}
+
+
+function userBowlingFirstInnings()
+{
+
+//console.log("Entered First Innings");
+
+//userOption will be displayed as image
+    userOption.src="./"+arr[userChoicePlay-1];
+    document.getElementById("UserResult").appendChild(userOption);
+
+//computerOption will be displayed as image
+computerOption.src="./"+arr[computerChoicePlay-1];
+document.getElementById("ComputerResult").appendChild(computerOption);
+
+//userOption will be displayed as number
+document.getElementById("userChoice").textContent = userChoicePlay;
+ 
+//computerOption will be displayed as number
+document.getElementById("computerChoice").textContent = computerChoicePlay;
+
+
+if(userChoicePlay==computerChoicePlay)
+{
+userBatOrBowl=1;
+console.log("Computer Out computer Score is",computerTotal);
+document.getElementById("ComputerOutDialog").showModal();
+}
+else
+{
+computerTotal=computerTotal+computerChoicePlay;
+console.log("\ncomputer Score is",computerTotal);
+
+
+    //computerscore will be displayed as number
+    document.getElementById("computerScore").textContent = computerTotal;
+}
+
+}
+
+
+function userBattingSecondInnings()
+{
+
+//console.log("Entered Second Innings");
+
+//userOption will be displayed as image
+    userOption.src="./"+arr[userChoicePlay-1];
+    document.getElementById("UserResult").appendChild(userOption);
+
+//computerOption will be displayed as image
+computerOption.src="./"+arr[computerChoicePlay-1];
+document.getElementById("ComputerResult").appendChild(computerOption);
+
+//userOption will be displayed as number
+document.getElementById("userChoice").textContent = userChoicePlay;
+ 
+//computerOption will be displayed as number
+document.getElementById("computerChoice").textContent = computerChoicePlay;
+
+
+if(userChoicePlay==computerChoicePlay)
+{
+console.log("User Out User Score is",userTotal);
+document.getElementById("UserOutDialog").showModal();
+if(userTotal<computerTotal)
+{
+console.log("Computer Won");
+document.getElementById("ComputerWon").showModal();
+}
+else if(userTotal==computerTotal)
+{
+console.log("Tie");
+document.getElementById("Tie").showModal();
+}
+
+}
+
+else
+{
+userTotal=userTotal+userChoicePlay;
+console.log("\nuser Score is ",userTotal,"Computer Score is",computerTotal);
+
+
+    //userscore will be displayed as number
+    document.getElementById("userScore").textContent = userTotal;
+}
+
+if(userTotal>computerTotal)
+{
+console.log("User Won");
+document.getElementById("UserWon").showModal();
+}
+
+}
+
+
+
+function userBattingFirstInnings()
+{
+
+//console.log("Entered First Innings");
+
+//userOption will be displayed as image
+    userOption.src="./"+arr[userChoicePlay-1];
+    document.getElementById("UserResult").appendChild(userOption);
+
+//computerOption will be displayed as image
+computerOption.src="./"+arr[computerChoicePlay-1];
+document.getElementById("ComputerResult").appendChild(computerOption);
+
+//userOption will be displayed as number
+document.getElementById("userChoice").textContent = userChoicePlay;
+ 
+//computerOption will be displayed as number
+document.getElementById("computerChoice").textContent = computerChoicePlay;
+
+
+if(userChoicePlay==computerChoicePlay)
+{
+userBatOrBowl=4;
+console.log("User Out User Score is",userTotal);
+document.getElementById("UserOutDialog").showModal();
+}
+
+else
+{
+userTotal=userTotal+userChoicePlay;
+console.log("\nuser Score is ",userTotal,"Computer Score is",computerTotal);
+
+
+    //userscore will be displayed as number
+    document.getElementById("userScore").textContent = userTotal;
+}
+
+}
+
+
+
+function userBowlingSecondInnings()
+{
+
+//console.log("Entered Second Innings");
+
+//userOption will be displayed as image
+    userOption.src="./"+arr[userChoicePlay-1];
+    document.getElementById("UserResult").appendChild(userOption);
+
+//computerOption will be displayed as image
+computerOption.src="./"+arr[computerChoicePlay-1];
+document.getElementById("ComputerResult").appendChild(computerOption);
+
+//userOption will be displayed as number
+document.getElementById("userChoice").textContent = userChoicePlay;
+ 
+//computerOption will be displayed as number
+document.getElementById("computerChoice").textContent = computerChoicePlay;
+
+
+if(userChoicePlay==computerChoicePlay)
+{
+        //userBatOrBowl=1;
+        console.log("Computer Out computer Score is",computerTotal);
+        document.getElementById("ComputerOutDialog").showModal();
+        console.log("UserTotal=",userTotal,"computerTotal",computerTotal);
+        if(userTotal<computerTotal)
+        {
+        console.log("Computer Won");
+        document.getElementById("ComputerWon").showModal();
+        }
+        if(userTotal>computerTotal)
+        {
+        console.log("User Won");
+        document.getElementById("UserWon").showModal();
+        }
+        else if(userTotal==computerTotal)
+        {
+        console.log("Tie");
+        document.getElementById("Tie").showModal();
+        }
+
+}
+
+else
+{
+computerTotal=computerTotal+computerChoicePlay;
+console.log("\ncomputer Score is",computerTotal);
+
+
+    //computerscore will be displayed as number
+    document.getElementById("computerScore").textContent = computerTotal;
+}
+if(computerTotal>userTotal)
+{
+console.log("Computer Won");
+document.getElementById("ComputerWon").showModal();
+}
+
+
+}
+
+function startAgain()
+{
+  CloseDiv("GroundDiv");
+  OpenDiv("OddOrEvenDialog");
+  document.getElementById("computerScore").textContent = 0;
+  document.getElementById("userScore").textContent = 0;
+
+  //userOption will be displayed as image
+    userOption.src="./"+arr[0];
+    document.getElementById("UserResult").appendChild(userOption);
+
+//computerOption will be displayed as image
+computerOption.src="./"+arr[0];
+document.getElementById("ComputerResult").appendChild(computerOption);
+
+//userOption will be displayed as number
+document.getElementById("userChoice").textContent = 0;
+ 
+//computerOption will be displayed as number
+document.getElementById("computerChoice").textContent = 0;
+
+  //document.getElementById("OddOrEvenDialog").style.display = "block";
+  //document.getElementById("evenButtonContainer").style.display = "block";
+  //document.getElementById("oddButtonContainer").style.display = "block";
+  tossOddOrEven=0;
+  userBatOrBowl=0;
+  userChoice=0;
+  computerChoice=0;
+  userChoicePlay=0;
+  computerChoicePlay=0;
+  toss=0;
+  userTotal=0;
+  computerTotal=0;
+  secondInningsBalancer=0;
+  computerChoiceBatOrBowl=10;
+}
+    </script>
+    </body>
